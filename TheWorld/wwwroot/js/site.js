@@ -1,14 +1,17 @@
 // site.js
 (function () {
 
-  var $sidebarAndWrapper = $("#sidebar,#wrapper");
+    var $sidebarAndWrapper = $("#sidebar,#wrapper");
+    var $icon = $("#sidebarToggle i.fa");
 
   $("#sidebarToggle").on("click", function () {
     $sidebarAndWrapper.toggleClass("hide-sidebar");
     if ($sidebarAndWrapper.hasClass("hide-sidebar")) {
-      $("<div><a class=fa fa-angle-left></a></div>")
+        $icon.removeClass("fa-angle-left");
+        $icon.addClass("fa-angle-right");
     } else {
-      $("<div><a class=fa fa-angle-right></a></div>");
+        $icon.addClass("fa-angle-left");
+        $icon.removeClass("fa-angle-right");
     }
   });
 })();

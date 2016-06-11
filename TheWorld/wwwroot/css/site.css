@@ -74,6 +74,14 @@ input[type=text], input[type=password], textarea {
         transition: left ease .25s;
     }
 
+        #sidebar.show-sidebar {
+        left: -250px;
+        -moz-transition: left ease .25s;
+        -o-transition: left ease .25s;
+        -webkit-transition: left ease .25s;
+        transition: left ease .25s;
+    }
+
 #wrapper {
     margin: 0 0 0 250px;
     -moz-transition: margin-left ease .25s;
@@ -83,6 +91,13 @@ input[type=text], input[type=password], textarea {
 }
 
     #wrapper.hide-sidebar {
+        margin-left: 0;
+        -moz-transition: margin-left ease .25s;
+        -o-transition: margin-left ease .25s;
+        -webkit-transition: margin-left ease .25s;
+        transition: margin-left ease .25s;
+    }
+    #wrapper.show-sidebar {
         margin-left: 0;
         -moz-transition: margin-left ease .25s;
         -o-transition: margin-left ease .25s;

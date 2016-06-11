@@ -1,30 +1,62 @@
 @model IEnumerable<TheWorld.Models.Trip>
 @{
-    ViewBag.Title = "Trips";
+    ViewBag.Title = "Home Page";
 }
-<div class="row">
+@section Scripts{
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/app-trips.js"></script>
+    <script src="~/js/tripscontroller.js"></script>
+}
 
+<div class="row" ng-app="app-trips">
 
-    <form>
-        <div class="form-group">
-            <label>Date</label>
-            <input class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Location</label>
-            <input class="form-control" />
-        </div>
-        <div><input type="submit" value="Add" class="btn btn-success" /></div>
-    </form>
+    <div ng-controller="tripsController as vm" class="col-md-6 col-md-offset-3">
+        <table class="table table-responsive table-striped">
+            <tr ng-repeat="trip in vm.trips">
+                <td>{{ trip.name }}</td>
+                <td>{{ trip.created | date }}</td>  @*"| date" is a pre-built filter to display data*@ 
+                <td><a href="#" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+        </table>
+
+        <form novalidate name="newTripForm" ng-submit="vm.addTrip()">
+            <div class="form-group">
+                <label>Trip Name</label>
+                <input class="form-control" type="text" id="name" name="name" ng-model="vm.newTrip.name" required ng-minlength="5" />
+                <span ng-show="newTripForm.name.$error.required" class="warning">Name is required</span>
+                <span ng-show="newTripForm.name.$error.minLength" class="warning">Name must be at least 5 characters</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-success btn-sm"
+                       ng-disabled="newTripForm.$invalid" />
+            </div>
+        </form>
+        
+    </div>
+
+    <div class="col-md-6">
+        <h1>Your World</h1>
+        <form>
+            <div class="form-group">
+                <label>Date</label>
+                <input class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input class="form-control" />
+            </div>
+            <div><input type="submit" value="Add" class="btn btn-success" /></div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h2>The Map</h2>
+        <ul>
+            @foreach (var trip in Model)
+            {
+                <li>@trip.Name (@trip.Created.ToShortDateString())</li>
+            }
+        </ul>
+    </div>
 </div>
 
-<div class="col-md-6">
-    <h2>The Map</h2>
-    <ul>
-        @foreach (var trip in Model)
-        {
-            <li>@trip.Name (@trip.Created.ToShortDateString())</li>
-        }
-    </ul>
-
-</div>

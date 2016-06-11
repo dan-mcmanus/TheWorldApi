@@ -3,6 +3,9 @@
   <PropertyGroup>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
     <ShowAllFiles>true</ShowAllFiles>
-    <DebugCLRTypeOverride>NET</DebugCLRTypeOverride>
+    <DebugCLRTypeOverride>Profile</DebugCLRTypeOverride>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

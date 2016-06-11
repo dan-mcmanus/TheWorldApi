@@ -73,7 +73,7 @@ namespace TheWorld.Controllers.Api
                     newStop.Longitude = coordinateResult.Longitude;
                     newStop.Latitude = coordinateResult.Latitude;
 
-                    repository.AddStop(tripName, newStop);
+                    repository.AddStop(tripName, User.Identity.Name, newStop);
 
                     if (repository.saveAll())
                     {

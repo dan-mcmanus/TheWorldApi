@@ -78,7 +78,7 @@ namespace TheWorld.Controllers.Api
                     if (repository.saveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<IEnumerable<StopViewModel>>(newStop));
+                        return Json(Mapper.Map<StopViewModel>(newStop));
                     }
                 }
             }

@@ -1,52 +1,57 @@
-﻿ // tripsController
+// tripsController.js
 (function () {
-    "use strict";
 
-    angular.module("app-trips")
-        .controller("tripsController", tripsController);
+  "use strict";
 
-    function tripsController($http) {
+  // Getting the existing module
+  angular.module("app-trips")
+    .controller("tripsController", tripsController);
 
-        var vm = this;
-        
-        vm.trips = [];
+  function tripsController($http) {
 
-        vm.newTrip = {};
+    var vm = this;
 
-        vm.errorMessage = "";
-        vm.isBusy = true;
+    vm.trips = [];
 
-        $http.get("/api/trips")
-            .then(function (response) {
-                // Success
-                angular.copy(response.data, vm.trips);
-            }, function (error) {
-                //Failure
-                vm.errorMessage = "Failed to load data: " + error;
-            })
-            .finally(function () {
-                vm.isBusy = false
-            });
+    vm.newTrip = {};
 
-        vm.addTrip = function () {
+    vm.errorMessage = "";
+    vm.isBusy = true;
 
-            vm.isBusy = true;
-            vm.errorMessage = "";
+    $http.get("/api/trips")
+      .then(function (response) {
+        // Success
+        angular.copy(response.data, vm.trips);
+      }, function (error) {
+        // Failure
+        vm.errorMessage = "Failed to load data: " + error;
+      })
+      .finally(function () {
+        vm.isBusy = false;
+      });
 
-            $http.post("/api/trips", vm.newTrip)
-                .then(function (response) {
-                    //success
-                    vm.trips.push(response.data);
-                    vm.newTrip = {};
-                }, function () {
-                    //failure
-                    vm.errorMessage = "Failed to save new trip";
-                })
-                .finally(function () {
-                    vm.isBusy = false;
-                });
-        };
+    vm.addTrip = function () {
 
-    }
+      vm.isBusy = true;
+      vm.errorMessage = "";
+
+      $http.post("/api/trips", vm.newTrip)
+        .then(function (response) {
+          // success
+          vm.trips.push(response.data);
+          vm.newTrip = {};
+        }, function () {
+          // failure
+          vm.errorMessage = "Failed to save new trip";
+        })
+        .finally(function () {
+          vm.isBusy = false;
+        });
+
+    };
+
+
+
+  }
 
 })();

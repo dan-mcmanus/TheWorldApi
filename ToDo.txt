@@ -1,0 +1,7 @@
+* Add profile picture for each user
+
+* Display current stop dynamically
+
+* Implement DatePicker for adding stops
+
+* Add Journaling for trips/stops

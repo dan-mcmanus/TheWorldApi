@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,41 @@ namespace TheWorld.Controllers
 {
     public class AuthController : Controller
     {
+        private UserManager<WorldUser> userManager;
         private SignInManager<WorldUser> signInManager;
 
-        public AuthController(SignInManager<WorldUser> _signInManager)
+        public AuthController(UserManager<WorldUser> _userManager, SignInManager<WorldUser> _signInManager)
         {
+            userManager = _userManager;
             signInManager = _signInManager;
         }
-        
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new WorldUser { UserName = model.Username, Email = model.Email };
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Trips", "App");
+                }
+            }
+            return View(model);
+        }
+
         public IActionResult Login()
         {
             
@@ -34,9 +63,7 @@ namespace TheWorld.Controllers
         {
             if (ModelState.IsValid)
             {
-                var signInResult = await signInManager.PasswordSignInAsync(model.Username,
-                                                                 model.Password,
-                                                                 true, false);
+                var signInResult = await signInManager.PasswordSignInAsync(model.Username, model.Password, true, false);
 
                 if (signInResult.Succeeded)
                 {

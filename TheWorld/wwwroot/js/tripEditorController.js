@@ -19,7 +19,7 @@
         $http.get(url)
           .then(function (response) {
               // success
-              angular.copy(response.data, vm.stops);
+              angular.copy(response.data, vm.stops, vm.lastStop);
               _showMap(vm.stops);
           }, function (err) {
               // failure
@@ -61,13 +61,13 @@
                     info: item.name
                 };
             });
-
+            
             // Show Map
             travelMap.createMap({
                 stops: mapStops,
                 selector: "#map",
-                currentStop: 1,
-                initialZoom: 3
+                currentStop: 0,
+                initialZoom: 4
             });
 
         }

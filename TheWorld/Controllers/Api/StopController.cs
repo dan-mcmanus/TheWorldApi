@@ -60,8 +60,7 @@ namespace TheWorld.Controllers.Api
                 if (ModelState.IsValid)
                 {
                     var newStop = Mapper.Map<Stop>(model);
-
-                    // Look up GeoCoordinates
+                    
                     var coordinateResult = await coordinateService.Lookup(newStop.Name);
 
                     if (!coordinateResult.Success)

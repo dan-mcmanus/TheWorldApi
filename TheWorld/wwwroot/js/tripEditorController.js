@@ -30,7 +30,7 @@
           });
 
         vm.addStop = function () {
-
+            
             vm.isBusy = true;
 
             $http.post(url, vm.newStop)

@@ -3,6 +3,6 @@
     "SiteEmailAddress": "danmcmanus11@outlook.com"
   },
   "Data": {
-    "WorldContextConnection": "Server=(localdb)\\ProjectsV13;Database=AroundTheWorld;Trusted_Connection=true;MultipleActiveResultSets=true"
+    "WorldContextConnection": "Server=(localdb)\\mssqllocaldb;Database=AroundTheWorld;Trusted_Connection=true;MultipleActiveResultSets=true"
   }
 }

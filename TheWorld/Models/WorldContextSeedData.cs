@@ -27,7 +27,7 @@ namespace TheWorld.Models
                     Email = "danmcmanus11@outlook.com"
                 };
 
-                await _userManager.CreateAsync(newUser, "#Rmm8voub");
+                await _userManager.CreateAsync(newUser, "P@ssword123");
             }
             if (!_context.Trips.Any())
             {
